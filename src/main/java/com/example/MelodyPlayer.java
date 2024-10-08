@@ -168,7 +168,7 @@ public class MelodyPlayer {
 		}
 	}
 	
-	//reset note to 0
+	//reset note to 0 - THE START :)
 	void reset() {
 		note_index = 0;
 		playStart = millis(); 

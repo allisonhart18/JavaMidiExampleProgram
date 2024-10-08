@@ -29,7 +29,7 @@
 	 static FileSystem sys = FileSystems.getDefault();
  
 	 //the getSeperator() creates the appropriate back or forward slash based on the OS in which it is running -- OS X & Windows use same code :) 
-	 static String filePath = "mid"  + sys.getSeparator() +  "MaryHadALittleLamb.mid"; // path to the midi file -- you can change this to your file
+	 static String filePath = "mid"  + sys.getSeparator() +  "rightPlace.mid"; // path to the midi file -- you can change this to your file
 																 // location/name
  
 	 public static void main(String[] args) {
@@ -74,8 +74,8 @@
 	 static void midiSetup(String filePath) {
  
 		 //Change the bus to the relevant port -- if you have named it something different OR you are using Windows
-		 player = new MelodyPlayer(100, "Bus 1"); //sets up the player with your bus. 
-		 //player.listDevices(); //prints available midi devices to the console -- find your device
+		 player = new MelodyPlayer(100, "Microsoft GS Wavetable Synth"); //sets up the player with your bus. 
+		 player.listDevices(); //prints available midi devices to the console -- find your device
  
 		 midiNotes = new MidiFileToNotes(filePath); // creates a new MidiFileToNotes -- reminder -- ALL objects in Java
 													 // must

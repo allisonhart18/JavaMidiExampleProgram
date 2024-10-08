@@ -131,6 +131,14 @@
 
 <dependencies>
 
+  <dependency>
+    <groupId>com.explodingart</groupId>
+    <artifactId>jmusic</artifactId>
+    <version>1.6.4.1</version>
+  </dependency>
+
+
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
