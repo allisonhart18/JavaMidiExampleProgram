@@ -17,7 +17,7 @@
  * 
  */
 
-package com.example;
+package com.soundGame;
 
 
 import java.util.Vector;

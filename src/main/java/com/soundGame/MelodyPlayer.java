@@ -6,7 +6,7 @@
  * 
  */
 
- package com.example;
+ package com.soundGame;
  
 import java.util.*;
 
@@ -71,9 +71,7 @@ public class MelodyPlayer {
 		hasStart = true;
 	}
 
-	// display all ports available to the MidiBus -- only output ports are relevant, however
-	//if OS X, best to choose the IAC bus we created (for mac/OS X) so can send to an external program (eg DAW/sampler)
-	//if Windows, why are you LIKE this??! -- TODO: install/document virtual port on Windows via 3rd party software
+
 	void listDevices()
 	{
 		MidiBusCRCP.listDevices(); 
