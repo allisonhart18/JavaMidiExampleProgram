@@ -1,6 +1,6 @@
 /*
  * Coder: Allison Hart
- * 9/30/2024
+ * 10/10/2024
  * triangle class - creates triangle and has collison logic
  * 
  * 
