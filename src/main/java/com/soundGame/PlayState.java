@@ -8,7 +8,7 @@
 
  package com.soundGame;
 
- import processing.core.PApplet;
+ import processing.core.*;
  import java.util.ArrayList;
  
  class PlayState extends GameState {
@@ -18,7 +18,7 @@
      Controller controller; // Reference to controller
      boolean gameEnded = false; // Flag to indicate the game has ended
  
-     PlayState(PApplet main, Controller controller) {
+     PlayState(App main, Controller controller) {
          super(main);
          this.controller = controller; // Store the controller reference
          
@@ -62,8 +62,9 @@
                  for (int j = i + 1; j < particles.size(); j++) {
                      Particle other = particles.get(j);
                      if (other instanceof triangleSprinkle) {
-                         ((triangleSprinkle) p).resolveCollision((triangleSprinkle) other);
-                     }
+                        ((triangleSprinkle) p).resolveCollision((triangleSprinkle) other, 0); 
+                    }
+                    
                  }
              }
      
@@ -108,9 +109,12 @@
      void mouseDragged() {
          if (!gameEnded) {
              for (Particle p : particles) {
-                 p.mouseDragged(); // Update particles during dragging
+                 p.mouseDragged();
+                // p.playSound(1); // Update particles during dragging
              }
+            
          }
+         
      }
  
      @Override
@@ -120,50 +124,63 @@
                  // Check if the particle is inside the box before ending the drag
                  if (p.isDragging && isInsideBox(p)) {
                      score += 10; // Award points
+                     
                  }
                  p.mouseReleased(); // Stop dragging after the check
              }
+             
          }
      }
  
      @Override
-     void keyPressed() {
-         if (main.key == 'b' || main.key == 'B') {
-             for (Particle p : particles) {
-                 if (p instanceof circleSprinkle) {
-                     int blue = (p.color & 0xFF); // Extract blue component
-                     blue = PApplet.min(blue + 25, 255); // Increase blue, max 255
-                     p.color = (p.color & 0xFFFFFF00) | blue; // Update blue
-                 }
-             }
-         }
+void keyPressed() {
+    if (main.key == 'b' || main.key == 'B') {
+        for (Particle p : particles) {
+            if (p instanceof circleSprinkle) {
+                int blue = (p.color & 0xFF); // Extract blue component
+                blue = App.min(blue + 25, 255); // Increase blue, max 255
+                p.color = (p.color & 0xFFFFFF00) | blue;
+                p.playSound(1); // Play 'rightPlace' sound
+            }
+        }
+    }
+
+    if (main.key == 'r' || main.key == 'R') {
+        for (Particle p : particles) {
+            if (p instanceof triangleSprinkle) {
+                int red = (p.color >> 16) & 0xFF; // Extract red component
+                red = App.min(red + 25, 255); // Increase red, max 255
+                p.color = (p.color & 0xFF00FFFF) | (red << 16); // Update red
+                p.playSound(1); // Play 'rightPlace' sound
+            }
+        }
+    }
+
+    if (main.key == 'g' || main.key == 'G') {
+        for (Particle p : particles) {
+            if (p instanceof squareSprinkle) {
+                int green = (p.color >> 8) & 0xFF; // Extract green component
+                green = App.min(green + 25, 255); // Increase green, max 255
+                p.color = (p.color & 0xFFFF00FF) | (green << 8); // Update green
+                p.playSound(1); // Play 'rightPlace' sound
+            }
+        }
+    }
+}
+
      
-         if (main.key == 'r' || main.key == 'R') {
-             for (Particle p : particles) {
-                 if (p instanceof triangleSprinkle) {
-                     int red = (p.color >> 16) & 0xFF; // Extract red component
-                     red = PApplet.min(red + 25, 255); // Increase red, max 255
-                     p.color = (p.color & 0xFF00FFFF) | (red << 16); // Update red
-                 }
-             }
-         }
-     
-         if (main.key == 'g' || main.key == 'G') {
-             for (Particle p : particles) {
-                 if (p instanceof squareSprinkle) {
-                     int green = (p.color >> 8) & 0xFF; // Extract green component
-                     green = PApplet.min(green + 25, 255); // Increase green, max 255
-                     p.color = (p.color & 0xFFFF00FF) | (green << 8); // Update green
-                 }
-             }
-         }
-     }
- 
      // Helper method to check if a particle is inside the drop box
      boolean isInsideBox(Particle p) {
          return p.x > boxX && p.x < boxX + boxSize && p.y > boxY && p.y < boxY + boxSize;
+         
      }
- 
+     public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
      @Override
      void mouseClicked() {
          // Not used in PlayState, but defined as part of the GameState

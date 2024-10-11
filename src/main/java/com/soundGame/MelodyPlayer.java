@@ -8,7 +8,7 @@
 
  package com.soundGame;
  
-import java.util.*;
+import java.util.ArrayList;
 
 // send the MIDI elsewhere to play the notes
 public class MelodyPlayer {

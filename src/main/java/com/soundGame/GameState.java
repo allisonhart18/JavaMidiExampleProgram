@@ -8,12 +8,12 @@
 
 package com.soundGame;
 
-import processing.core.PApplet;
+import processing.core.*;
 
 abstract class GameState {
-    PApplet main;
+    App main;
 
-    GameState(PApplet main) {
+    GameState(App main) {
         this.main = main;
     }
 

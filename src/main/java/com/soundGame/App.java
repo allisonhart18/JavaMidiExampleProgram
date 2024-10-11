@@ -1,18 +1,19 @@
 /*
- * c2017-2024 Courtney Brown 
- * Class: Main Class for Hello World for CC3 Class Projects streaming MIDI, etc.
- * Description: Demonstration of MIDI file manipulations, etc. & 'MelodyPlayer' sequencer, 2024 - add processing/interactivity
+ * coder - Allison Hart but lots of help from class videos
+ * 10/10/204
+ * Description: manages the game's setup, states, and sound playback using MIDI files
  * 
+ * When r,g, and b are pressed a sound is made
  */
 package com.soundGame;
 
-import processing.core.PApplet;
+import processing.core.*;
 
 public class App extends PApplet {
     static String filePath = "mid" + System.getProperty("file.separator"); // Path to the midi file folder
 
     // Names of midi files used in the game
-    String[] midiFiles = {"bounce", "rightPlace", "grab"};
+    String[] midiFiles = {"bounce", "rightPlace", "grab", "circle", "deep", "startend"};
 
     // Melody manager for handling midi
     melodyManager melodyManager = new melodyManager();
@@ -21,7 +22,7 @@ public class App extends PApplet {
     Controller gameController;
 
     public static void main(String[] args) {
-        PApplet.main("com.soundGame.App");
+        App.main("com.soundGame.App");
     }
 
     public void settings() {
@@ -32,7 +33,7 @@ public class App extends PApplet {
         println("Setup started");
         // Initialize the melody manager and add midi files
         addMidiFiles();
-        melodyManager.start(2); // Start playing the second melody
+        melodyManager.start(5); // Start playing the opening melody
 
         // Initialize the game controller and set the initial state
         gameController = new Controller(this);
@@ -47,11 +48,15 @@ public class App extends PApplet {
         }
     }
 
+    // Return the list of MIDI files (this method will be used by particles)
+    public String[] getMidiFiles() {
+        return midiFiles;
+    }
+
     public void draw() {
         background(255);
         // Play melodies
         melodyManager.playMelodies(); // This will now correctly call playMelodies
-       // println("Draw loop executed");
 
         // Update and display the current game state
         if (gameController != null) {
@@ -67,6 +72,7 @@ public class App extends PApplet {
             if (playState.someConditionToSwitchState()) {
                 gameController.currentState.reset();  // Reset the current state before switching
                 gameController.setState(gameController.gameOverState);  // Switch to the GameOverState
+                playSound(5);  // Play the "startend" sound when switching to GameOverState
             }
         }
     }
@@ -87,5 +93,19 @@ public class App extends PApplet {
 
     public void mouseReleased() {
         gameController.mouseReleased();
+    }
+
+    // Method to access the melodyManager
+    public melodyManager getmelodyManager() {
+        return melodyManager;
+    }
+
+    // Method to play a specific sound by index
+    public void playSound(int soundIndex) {
+        if (melodyManager != null && soundIndex >= 0 && soundIndex < midiFiles.length) {
+            melodyManager.start(soundIndex);  // Play the sound at the given index
+        } else {
+            println("Error: Invalid sound index or melodyManager not initialized.");
+        }
     }
 }

@@ -7,14 +7,14 @@
  */
 
 package com.soundGame;
-import processing.core.PApplet;
+import processing.core.*;
 import processing.core.PConstants;
 
 class GameOverState extends GameState {
     Controller controller;
     float buttonX, buttonY, buttonWidth, buttonHeight;
 
-    GameOverState(PApplet main, Controller controller) {
+    GameOverState(App main, Controller controller) {
         super(main);
         this.controller = controller;
 

@@ -7,12 +7,14 @@
  */
 
 
+
  package com.soundGame;
 
- import processing.core.PApplet;
+
+ import processing.core.*;
  
  public class Controller {
-     PApplet main;
+     App main;
  
      // Current game state and other states
      GameState currentState;
@@ -23,7 +25,7 @@
      // Track if the game is over
      boolean isGameOver = false;
  
-     public Controller(PApplet main) {
+     public Controller(App main) {
          this.main = main;
          playState = new PlayState(main, this);
          mainMenuState = new MainMenuState(main, this);
@@ -71,4 +73,3 @@
          currentState.keyPressed();
      }
  }
- 
